@@ -14,27 +14,41 @@ object Main extends App {
 
   //println(resourcePath.getPath)
 
-  val file = new File("C:\\Users\\Pawel\\Desktop\\IntellijProjects\\ScalacIntreview\\src\\main\\resources\\a.jpg")
+  val file = new File("C:\\Users\\Pawel\\Desktop\\IntellijProjects\\ScalacIntreview\\src\\main\\resources\\b.jpg")
   val image: BufferedImage = ImageIO.read(file)
   val width = image.getWidth
   val height = image.getHeight
   println(width, height)
-  val singlePixel = image.getRGB(0, 0)
 
-  val blue = singlePixel & 0xff
-  val red = (singlePixel >> 16) & 0xff
-  val green = (singlePixel >> 8) & 0xff
-  val alpha = (singlePixel >> 24) & 0xff
+  /*val px = image.getRGB(100, 100)
+  val blue = px & 0xff
+  val green = (px >> 8) & 0xff
+  val red = (px >> 16) & 0xff
 
+  println(red, green, blue)*/
 
-
-
-  println(alpha, red, green, blue)
+  var redSUM, greenSUM, blueSUM = 0
 
 
-  for(i <- 0 to height){
-    for(j <- 0 to width){
+  /*for(i <- 0 to 3){
+    for(j <- 0 to 3){*/
 
+  for(i <- 0 to width - 1){
+    for(j <- 0 to height - 1){
+      val singlePixel = image.getRGB(i, j)
+      blueSUM = blueSUM + (singlePixel & 0xff)
+      greenSUM = greenSUM + ((singlePixel >> 8) & 0xff)
+      redSUM = redSUM + ((singlePixel >> 16) & 0xff)
+      //println("avg after every single px" + redAVG, greenAVG, blueAVG)
+      //val alpha = (singlePixel >> 24) & 0xff
     }
   }
+
+  //nie za duze inty tu beda?
+
+  val blueAVG = blueSUM/(width*height)
+  val greenAVG = greenSUM/(width*height)
+  val redAVG = redSUM/(width*height)
+
+  println(redAVG, greenAVG, blueAVG)
 }
