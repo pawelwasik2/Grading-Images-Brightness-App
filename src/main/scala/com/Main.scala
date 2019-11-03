@@ -7,48 +7,38 @@ import javax.imageio.ImageIO
 
 
 object Main extends App {
-  //val file = new File("./bright/a.jpg")
+  val folder = new File(".\\too_dark")
+  val photos = folder.listFiles.filter(_.isFile).toList
+  println(photos)
 
+  for(file <- photos){
+    val image: BufferedImage = ImageIO.read(file)
+    val width = image.getWidth
+    val height = image.getHeight
+    //println(width, height)
 
-  //val resourcePath = getClass.getResource("/bright/a.jpg")
+    var redSUM, greenSUM, blueSUM = 0
 
-  //println(resourcePath.getPath)
-
-  val file = new File("C:\\Users\\Pawel\\Desktop\\IntellijProjects\\ScalacIntreview\\src\\main\\resources\\b.jpg")
-  val image: BufferedImage = ImageIO.read(file)
-  val width = image.getWidth
-  val height = image.getHeight
-  println(width, height)
-
-  /*val px = image.getRGB(100, 100)
-  val blue = px & 0xff
-  val green = (px >> 8) & 0xff
-  val red = (px >> 16) & 0xff
-
-  println(red, green, blue)*/
-
-  var redSUM, greenSUM, blueSUM = 0
-
-
-  /*for(i <- 0 to 3){
-    for(j <- 0 to 3){*/
-
-  for(i <- 0 to width - 1){
-    for(j <- 0 to height - 1){
-      val singlePixel = image.getRGB(i, j)
-      blueSUM = blueSUM + (singlePixel & 0xff)
-      greenSUM = greenSUM + ((singlePixel >> 8) & 0xff)
-      redSUM = redSUM + ((singlePixel >> 16) & 0xff)
-      //println("avg after every single px" + redAVG, greenAVG, blueAVG)
-      //val alpha = (singlePixel >> 24) & 0xff
+    for(i <- 0 to width - 1){
+      for(j <- 0 to height - 1){
+        val singlePixel = image.getRGB(i, j)
+        blueSUM = blueSUM + (singlePixel & 0xff)
+        greenSUM = greenSUM + ((singlePixel >> 8) & 0xff)
+        redSUM = redSUM + ((singlePixel >> 16) & 0xff)
+        //println("avg after every single px" + redAVG, greenAVG, blueAVG)
+        //val alpha = (singlePixel >> 24) & 0xff
+      }
     }
+
+    //nie za duze inty tu beda?
+
+    val blueAVG = blueSUM/(width*height)
+    val greenAVG = greenSUM/(width*height)
+    val redAVG = redSUM/(width*height)
+
+    println("PLIK: " + file + "R, G, B: " + redAVG, greenAVG, blueAVG)
   }
 
-  //nie za duze inty tu beda?
+  //val file = new File("C:\\Users\\Pawel\\Desktop\\IntellijProjects\\ScalacIntreview\\src\\main\\resources\\b.jpg")
 
-  val blueAVG = blueSUM/(width*height)
-  val greenAVG = greenSUM/(width*height)
-  val redAVG = redSUM/(width*height)
-
-  println(redAVG, greenAVG, blueAVG)
 }
