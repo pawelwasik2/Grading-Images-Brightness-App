@@ -7,7 +7,7 @@ import javax.imageio.ImageIO
 
 
 object Main extends App {
-  val border = 60
+  val border = 75
 
   val folder = new File(".\\too_dark")
   val photos = folder.listFiles.filter(_.isFile).toList
@@ -40,14 +40,13 @@ object Main extends App {
 
     println("PLIK: " + file + " R, G, B: " + redAVG, greenAVG, blueAVG)
 
-    var percent = 0
     val rgbAVG = (blueAVG + greenAVG + redAVG)/3
-    if(rgbAVG < border){
-      percent = 100 - (rgbAVG*100)/border
-      println("dark " + percent)
+    val score = 100 - (rgbAVG*100)/255
+
+    if(score > border){
+      println("dark " + score)
     }else{
-      percent = ((rgbAVG-border)*100)/(255 - border)
-      println("bright "+percent)
+      println("bright " + score)
     }
   }
 
