@@ -34,6 +34,11 @@ object Main extends App {
     val height = image.getHeight
 
     var redSUM, greenSUM, blueSUM = 0
+    var V = 0.0
+    var b = 0.0
+    var g = 0.0
+    var r = 0.0
+    var max = 0.0
 
     for(i <- 0 until width ){
       for(j <- 0 until height){
@@ -41,6 +46,11 @@ object Main extends App {
         blueSUM = blueSUM + (singlePixel & 0xff)
         greenSUM = greenSUM + ((singlePixel >> 8) & 0xff)
         redSUM = redSUM + ((singlePixel >> 16) & 0xff)
+        b = (singlePixel & 0xff)
+        g = ((singlePixel >> 8) & 0xff)
+        r = ((singlePixel >> 16) & 0xff)
+        max = (r/255 max g/255) max b/255
+        V = V + max
       }
     }
 
@@ -49,11 +59,14 @@ object Main extends App {
     val blueAVG = blueSUM/(width*height)
     val greenAVG = greenSUM/(width*height)
     val redAVG = redSUM/(width*height)
+    val vAVG = V/(width*height)
 
-    println("PLIK: " + file + " R, G, B: " + redAVG, greenAVG, blueAVG)
+    println("PLIK: " + file + " R, G, B: " + redAVG, greenAVG, blueAVG, " V: " + vAVG)
 
     val rgbAVG = (blueAVG + greenAVG + redAVG)/3
-    val score = 100 - (rgbAVG*100)/255
+    //val score = 100 - (rgbAVG*100)/255
+    val score = 100 - (vAVG * 100).round
+    //println(score)
 
     val newName = file.getName.split("\\.")
 
