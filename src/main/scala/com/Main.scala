@@ -7,9 +7,20 @@ import javax.imageio.ImageIO
 
 
 object Main extends App {
-  val srcDir = "bright"
+  var srcDir = ""
+  var resultDir = ""
+  val configFilename = "config.txt"
+  try{
+    val configFile = io.Source.fromFile(configFilename)
+    val configLines = configFile.getLines().mkString(",").split(",")
+    srcDir = configLines(0)
+    resultDir = configLines(1)
+    configFile.close()
+  }catch{
+    case ioe: IOException => ioe.printStackTrace()
+  }
+
   val pathSrcDir = ".\\" + srcDir
-  val resultDir = "result"
 
   val border = 75
 
@@ -30,8 +41,6 @@ object Main extends App {
         blueSUM = blueSUM + (singlePixel & 0xff)
         greenSUM = greenSUM + ((singlePixel >> 8) & 0xff)
         redSUM = redSUM + ((singlePixel >> 16) & 0xff)
-        //println("avg after every single px" + redAVG, greenAVG, blueAVG)
-        //val alpha = (singlePixel >> 24) & 0xff
       }
     }
 
