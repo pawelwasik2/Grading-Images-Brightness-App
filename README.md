@@ -5,9 +5,9 @@ Simple application for grading pictures brightness. Works correctly for all demo
 # Config.txt
 
 Example config:
-> too_dark__
-> result__
-> "cut-off" point
+> too_dark
+> result
+> "cut-off"-point
 
 First line is IN directory
 Second line is OUT directroy
