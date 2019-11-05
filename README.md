@@ -5,8 +5,8 @@ Simple application for grading pictures brightness. Works correctly for all demo
 # Config.txt
 
 Example config:
-> too_dark
-> result
+> too_dark__
+> result__
 > "cut-off" point
 
 First line is IN directory
@@ -15,6 +15,6 @@ Third line is cut-off point, integer in range from 0 to 100
 
 Directories names can't contain "."(dot) or ","(coma).
 
-#Run
+# Run
 
 App can be started with a simple sbt run command or similar.
