@@ -1,4 +1,4 @@
-# ScalacInterview
+# Description
 
 Simple application for grading pictures brightness. Works correctly for all demo images, cut-off point is default 75 but it works correctly for cut-off point from 63 to 84 also. However, app works for any images.
 

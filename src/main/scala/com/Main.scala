@@ -28,6 +28,8 @@ object Main extends App {
   val folder = new File(pathSrcDir)
   val photos = folder.listFiles.filter(_.isFile).toList
 
+
+
   //iterate through every single pixel from photo and calculate average V for all of them
   for(file <- photos){
     val image: BufferedImage = ImageIO.read(file)
