@@ -4,37 +4,32 @@ import java.io._
 import java.io.IOException
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
-
+import java.io.File.separator
+import com.typesafe.config._
 
 object Main extends App {
-  //get out directory, in directory and "cut-off" point from config file
-  var srcDir = ""
-  var resultDir = ""
-  var border = 0
-  val configFilename = "config.txt"
-  try{
-    val configFile = io.Source.fromFile(configFilename)
-    val configLines = configFile.getLines().mkString(",").split(",")
-    srcDir = configLines(0)
-    resultDir = configLines(1)
-    border = configLines(2).toInt
-    configFile.close()
-  }catch{
-    case ioe: IOException => ioe.printStackTrace()
-  }
+  //load in, out dir and cutoff point from the conf file
+  val conf = ConfigFactory.load()
+  val srcDir = conf.getString("vars.in")
+  val resultDir = conf.getString("vars.out")
+  val border = conf.getInt("vars.point")
 
   //get path of every single jpg and png from in directory
-  val pathSrcDir = ".\\" + srcDir
-  val folder = new File(pathSrcDir)
-  val photos = folder.listFiles.filter(_.isFile).toList
+  //val folder = new File(srcDir)
+  val photos = new File(srcDir).listFiles.filter(_.isFile).toList
 
-  photos.map(file =>
-    ImageIO.read(file)
-      .getRGB(0, 0, getWidth)
-    //print(file)
-    //val img = ImageIO.read(file)
-  )
-    /*val width = image.getWidth
+  print(photos)
+  /*photos.map{el => {
+    val image = ImageIO.read(el)
+    for(i <- 0 until image.getWidth ){
+      for(j <- 0 until image.getHeight){
+        val singlePixel = image.getRGB(i, j)
+        V = V + Calc.getMaxOfColors(singlePixel)
+      }
+      }
+    0
+    }}
+    val width = image.getWidth
     val height = image.getHeight
 
     var V = 0.0
