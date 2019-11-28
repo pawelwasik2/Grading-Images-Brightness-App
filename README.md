@@ -7,11 +7,13 @@ then calculate V. Finally calculate average V for photo.
 # allpication.conf
 
 Example config:
-    vars {
-        in="in"
-    	out="result"
-    	point="75"
-    }
+```
+vars {
+    in="in"
+	out="result"
+	point="75"
+}
+```
 
 
 First line is IN directory
