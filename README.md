@@ -1,13 +1,18 @@
 # Description
 
-Simple application for grading pictures brightness. Works correctly for all demo images, cut-off point is default 75 but it works correctly for cut-off point from 63 to 84 also. However, app works for any images.
+Simple application for grading pictures brightness. Works correctly for all .jpg and .png images.
+App is using HSV color model (V is for brigtness). Firstly, calculating RGB of every single pixel in photo,
+then calculate V. Finally calculate average V for photo.
 
-# Config.txt
+# allpication.conf
 
 Example config:
-> too_dark <br />
-> result <br />
-> 75
+>vars {
+>    in="in"
+>	out="result"
+>	point="75"
+>}
+
 
 First line is IN directory
 Second line is OUT directroy
