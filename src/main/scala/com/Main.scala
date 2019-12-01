@@ -1,7 +1,6 @@
 package com
 
 import java.io._
-import java.io.IOException
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 import java.io.File.separator
@@ -23,7 +22,6 @@ object Main extends App {
   val photos = new File(srcDir).listFiles.filter(_.isFile).toList
 
   //todo: for in FP??
-  //todo: 0 in return??
   //todo: try to remove all vars
   //todo: tests
   photos.map{el => {
