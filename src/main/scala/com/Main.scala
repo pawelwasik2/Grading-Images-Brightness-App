@@ -14,12 +14,9 @@ import java.nio.file.StandardCopyOption._
 object Main extends App {
   //load in, out dir and cutoff point from the conf file
   val conf = ConfigFactory.load()
-  val srcDir = conf.getString("vars.in")
-  val resultDir = conf.getString("vars.out")
-  val border = conf.getInt("vars.point")
 
   //get path of every single jpg and png from in directory
-  val photos = new File(srcDir).listFiles.filter(_.isFile).toList
+  val photos = new File(conf.getString("vars.in")).listFiles.filter(_.isFile).toList
 
   //todo: for in FP??
   //todo: try to remove all vars
@@ -32,13 +29,13 @@ object Main extends App {
     val vAVG = s/(image.getWidth*image.getHeight)
     val score = 100 - (vAVG * 100).round
     val newName = el.getName.split("\\.")
-    if(score > border){
+    if(score > conf.getInt("vars.point")){
       newName(0) = newName(0) + "_dark_" + score
     }else{
       newName(0) = newName(0) + "_bright_" + score
     }
 
-    val destination = resultDir + separator + newName.mkString(".")
+    val destination = conf.getString("vars.out") + separator + newName.mkString(".")
     val src: Path = Paths.get(el.getPath)
     val dest: Path = Paths.get(destination)
     Files.copy(src, dest, REPLACE_EXISTING)
