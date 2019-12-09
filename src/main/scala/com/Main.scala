@@ -24,16 +24,12 @@ object Main extends App {
   //todo: for in FP??
   //todo: try to remove all vars
   //todo: tests
-  photos.map{el => {
+  photos.foreach{el => {
     val image = ImageIO.read(el)
-    var V: Double = 0
-    for(i <- 0 until image.getWidth ) {
-      for (j <- 0 until image.getHeight) {
-        val singlePixel = image.getRGB(i, j)
-        V = V + Calc.getMaxOfColors(singlePixel)
-      }
-    }
-    val vAVG = V/(image.getWidth*image.getHeight)
+    val s = (0 until image.getWidth())
+      .map(x => (0 until image.getHeight())
+        .map(y => Calc.getMaxOfColors(image.getRGB(x, y))).sum).sum
+    val vAVG = s/(image.getWidth*image.getHeight)
     val score = 100 - (vAVG * 100).round
     val newName = el.getName.split("\\.")
     if(score > border){
